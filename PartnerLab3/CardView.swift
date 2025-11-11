@@ -1,8 +1,8 @@
 //
 // Lab 3
-// Group #
+// Group #3
 // Hasan Dababo
-// Date: 11/10/2025
+// Date: 11/7/2025
 //
 
 import SwiftUI
@@ -36,14 +36,13 @@ struct CardView: View {
         .aspectRatio(2/3, contentMode: .fit)
         .shadow(radius: 3)
         
-        // Flip-style effect: basic but looks cool
+        // Flip-style effect basic but looks cool
         .rotation3DEffect(
             .degrees(card.isFaceUp ? 0 : 180),
             axis: (x: 0, y: 1, z: 0)
         )
         .animation(.easeInOut(duration: 0.25), value: card.isFaceUp)
         
-        // When matched: shrink and fade out = simple transition/animation
         .opacity(card.isMatched ? 0 : 1)
         .scaleEffect(card.isMatched ? 0.5 : 1.0)
         .animation(.easeInOut(duration: 0.3), value: card.isMatched)

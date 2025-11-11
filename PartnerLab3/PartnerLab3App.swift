@@ -1,8 +1,8 @@
 //
 // Lab 3
-// Group #
-// Hasan Dababo, Partner Name
-// Date: 11/10/2025
+// Group #3
+// Hasan Dababo
+// Date: 11/7/2025
 //
 
 import SwiftUI

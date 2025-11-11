@@ -1,9 +1,10 @@
 //
 // Lab 3
-// Group #
+// Group #3
 // Hasan Dababo
-// Date: 11/10/2025
+// Date: 11/7/2025
 //
+
 
 import Foundation
 
@@ -32,7 +33,6 @@ struct MemoryGame {
             cards[chosenIndex].isFaceUp = true
             indexOfFaceUpCard = nil
         } else {
-            // no card / two cards face up -> flip all down, then flip this one up
             for index in cards.indices {
                 cards[index].isFaceUp = false
             }
@@ -42,7 +42,6 @@ struct MemoryGame {
     }
     
     static func createGame() -> MemoryGame {
-        // super simple: few emojis, two of each
         let emojis = ["🍕","🍟","🌮","🍩","🍪","🍔"]
         var newCards: [MemoryCard] = []
         
