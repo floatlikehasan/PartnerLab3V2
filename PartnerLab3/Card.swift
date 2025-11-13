@@ -4,6 +4,9 @@
 // Hasan Dababo
 // Date: 11/7/2025
 //
+// Card.swift
+// Description: Model for a single memory card, storing its emoji and flip/match state.
+
 
 
 import Foundation

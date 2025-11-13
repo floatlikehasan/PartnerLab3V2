@@ -4,6 +4,9 @@
 // Hasan Dababo
 // Date: 11/7/2025
 //
+// PartnerLab3App.swift
+// Description: App entry point that launches ContentView inside a NavigationStack.
+
 
 import SwiftUI
 
@@ -11,7 +14,7 @@ import SwiftUI
 struct PartnerLab3App: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack { ContentView() }
         }
     }
 }

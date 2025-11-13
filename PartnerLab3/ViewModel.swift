@@ -4,6 +4,9 @@
 // Hasan Dababo
 // Date: 11/7/2025
 //
+// ViewModel.swift
+// Description: ViewModel that exposes cards to the UI and forwards user actions to the game model.
+
 
 import SwiftUI
 import Combine
@@ -11,13 +14,13 @@ import Combine
 class MemoryGameViewModel: ObservableObject {
     @Published private var model: MemoryGame = MemoryGame.createGame()
     
-    // view reads cards from here
+    //view reading cards logic
     var cards: [MemoryCard] {
         model.cards
     }
     
     func choose(_ card: MemoryCard) {
-        // simple. actual animation is triggered in the View using withAnimation().
+        //animation triggered in the View 
         model.choose(card)
     }
     

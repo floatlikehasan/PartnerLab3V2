@@ -4,6 +4,8 @@
 // Hasan Dababo
 // Date: 11/7/2025
 //
+// MemoryGame.swift
+// Description: Core game logic for matching cards, handling flips, and generating a shuffled deck.
 
 
 import Foundation
@@ -11,7 +13,7 @@ import Foundation
 struct MemoryGame {
     var cards: [MemoryCard]
     
-    // this remembers if there is exactly one face up card
+    //recalls if there is exactly one face up card
     private var indexOfFaceUpCard: Int? = nil
     
     mutating func choose(_ card: MemoryCard) {
@@ -42,7 +44,7 @@ struct MemoryGame {
     }
     
     static func createGame() -> MemoryGame {
-        let emojis = ["🍕","🍟","🌮","🍩","🍪","🍔"]
+        let emojis = ["🌍","🌈","☁️","🪐","🌿","💧"]
         var newCards: [MemoryCard] = []
         
         for emoji in emojis {
@@ -55,3 +57,4 @@ struct MemoryGame {
     }
 }
 
+ 
