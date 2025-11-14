@@ -53,12 +53,9 @@ Each card is its own view (`CardView`) that reacts to:
 I added a smooth **flip animation** using SwiftUI’s `spring` and `easeInOut` effects.  
 When the player taps a card:
 
-- The card scales slightly (but keeps a perfectly square aspect ratio)
+- The card scales slightly 
 - The face texture fades in
 - The border and glossy overlay appear smoothly
 - Matched cards shrink and fade out
 
-All animations are placed inside the View layer (`CardView`), triggered using:
-
-```swift
-withAnimation(.easeInOut(duration: 0.25)) { ... }
+All animations are placed inside the View layer (`CardView`)
