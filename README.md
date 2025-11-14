@@ -11,6 +11,17 @@ The UI is styled with a Frutiger Aero–inspired look: bright background image, 
 
 ---
 
+
+## Video
+
+A walkthrough video explaining:
+- How MVVM is implemented (Model, ViewModel, View separation).
+- How the animations are wired to state (`isFaceUp`, `isMatched`) and where they are in the code.
+
+https://drive.google.com/file/d/1AGhNghqjAZsap2UDZrC-Z9BK5Nw7ViZr/view?usp=sharing
+
+---
+
 ## MVVM Architecture
 
 ### Model (`MemoryGame.swift`, `MemoryCard.swift`)
@@ -121,11 +132,3 @@ All animations are implemented in the View layer and are driven by changes in `c
 - Spacing is chosen so nothing overlaps the Dynamic Island or system UI on modern iPhones.
 
 ---
-
-## Video
-
-A walkthrough video explaining:
-- How MVVM is implemented (Model, ViewModel, View separation).
-- How the animations are wired to state (`isFaceUp`, `isMatched`) and where they are in the code.
-
-[Paste video link here once recorded]
