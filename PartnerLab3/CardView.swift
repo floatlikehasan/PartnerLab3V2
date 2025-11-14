@@ -58,7 +58,7 @@ struct CardView: View {
         }
     }
     
-    //what the card looks like when it's face down or matched
+    //this section here makes what the card looks like when it's face down or matched
     private func ifMatchedCard(using shape: RoundedRectangle) -> some View {
         let fillColor: Color = card.isMatched
             ? Color.cyan.opacity(0.3)
