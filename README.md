@@ -14,9 +14,7 @@ The UI is styled with a Frutiger Aero–inspired look: bright background image, 
 
 ## Video
 
-A walkthrough video explaining:
-- How MVVM is implemented (Model, ViewModel, View separation).
-- How the animations are wired to state (`isFaceUp`, `isMatched`) and where they are in the code.
+A walkthrough video that explains the animations and MVVM:
 
 https://drive.google.com/file/d/1AGhNghqjAZsap2UDZrC-Z9BK5Nw7ViZr/view?usp=sharing
 
