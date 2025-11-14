@@ -4,15 +4,15 @@
 
 ## Overview  
 This project is my rebuilt version of the Memory Card Game using the **MVVM architecture**, improved UI organization, and a custom transition/animation effect.  
-I themed the entire app around a modern **Frutiger Aero aesthetic**—bright sky gradients, glossy textures, soft shadows, and clean rounded typography. The goal was to make the game feel light, smooth, and visually satisfying while keeping the code structure clean and modular.
+I themed the entire app around a modern **Frutiger Aero aesthetic** with bright sky gradients, glossy textures, soft shadows, and clean rounded typography. The goal was to make the game feel light, smooth, and visually satisfying while keeping the code structure clean and modular.
 
 The user flips over glossy cards and tries to match all the icons.  
-I implemented a **smooth flip animation** and locked card sizes so the layout always feels consistent across devices.
+I implemented a **smooth flip animation**.
 
 ---
 
 ## MVVM Architecture Breakdown  
-I followed the MVVM pattern exactly like the lesson required, separating the project into three clear layers:
+I followed the MVVM pattern for this project:
 
 ### **Model — `MemoryGame.swift` / `MemoryCard.swift`**
 The model handles:
@@ -21,8 +21,6 @@ The model handles:
 - Flipping logic
 - Resetting the game
 - Tracking which card is face-up
-
-The game logic has **zero UI code**, and the model knows nothing about SwiftUI.
 
 ---
 
@@ -33,13 +31,10 @@ The ViewModel:
 - Calls `model.restart()` to shuffle/reset  
 - Uses `@Published` so the UI automatically updates  
 - Acts as the “middleman” between UI and logic  
-
-This file basically keeps the UI simple and reactive.
-
 ---
 
 ### **View — `ContentView.swift` + `CardView.swift`**
-The View handles **all UI only**, including:
+The View handles **UI only**, including:
 - The grid layout (4 rows × 3 columns)
 - Header text + description
 - Background image
@@ -51,8 +46,6 @@ Each card is its own view (`CardView`) that reacts to:
 - `isFaceUp`  
 - `isMatched`  
 - The ViewModel’s updates  
-
-The view never directly touches game logic.
 
 ---
 
