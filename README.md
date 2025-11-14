@@ -1,61 +1,131 @@
-# Frutiger Aero Memory Game — Partner Lab 3  
-**Group #3 — Hasan Dababo**  
-**Date: 11/7/2025**
+# Partner Lab 3 – Memory Game (Frutiger Aero Theme)
 
-## Overview  
-This project is my rebuilt version of the Memory Card Game using the **MVVM architecture**, improved UI organization, and a custom transition/animation effect.  
-I themed the entire app around a modern **Frutiger Aero aesthetic** with bright sky gradients, glossy textures, soft shadows, and clean rounded typography. The goal was to make the game feel light, smooth, and visually satisfying while keeping the code structure clean and modular.
+Group #3 – Hasan Dababo  
+Date: 11/7/2025
 
-The user flips over glossy cards and tries to match all the icons.  
-I implemented a **smooth flip animation**.
+## Overview
 
----
+This project is a memory card game rebuilt using the MVVM architecture. The app displays 12 cards arranged in a fixed 4×3 grid. Each card shows an emoji when face up, and the goal is to find all the matching pairs.
 
-## MVVM Architecture Breakdown  
-I followed the MVVM pattern for this project:
-
-### **Model — `MemoryGame.swift` / `MemoryCard.swift`**
-The model handles:
-- The list of cards
-- Matching logic
-- Flipping logic
-- Resetting the game
-- Tracking which card is face-up
+The UI is styled with a Frutiger Aero–inspired look: bright background image, glossy-looking cards, rounded fonts, and simple, clean spacing. The focus of the project is on correct MVVM structure and basic, state-driven animations that make the interactions feel more responsive.
 
 ---
 
-### **ViewModel — `MemoryGameViewModel.swift`**
-The ViewModel:
-- Exposes `cards` to the view  
-- Calls `model.choose()` when the user taps a card  
-- Calls `model.restart()` to shuffle/reset  
-- Uses `@Published` so the UI automatically updates  
-- Acts as the “middleman” between UI and logic  
+## MVVM Architecture
+
+### Model (`MemoryGame.swift`, `MemoryCard.swift`)
+
+- `MemoryCard`:
+  - Represents a single card.
+  - Stores:
+    - `id` (UUID)
+    - `emoji` (String)
+    - `isFaceUp` (Bool)
+    - `isMatched` (Bool)
+
+- `MemoryGame`:
+  - Stores an array of `MemoryCard` as `cards`.
+  - Tracks the index of the one face-up card using `indexOfFaceUpCard`.
+  - `mutating func choose(_ card: MemoryCard)`:
+    - Finds the tapped card’s index.
+    - Ignores taps on cards that are already matched or already face up.
+    - If one other card is face up:
+      - Compares emojis.
+      - Marks both as matched if they are the same.
+      - Sets the tapped card to face up and clears `indexOfFaceUpCard`.
+    - If no card is currently the “one face up”:
+      - Turns all cards face down.
+      - Sets the tapped card to face up.
+      - Updates `indexOfFaceUpCard` to the new index.
+  - `static func createGame() -> MemoryGame`:
+    - Uses six Frutiger Aero–style emojis.
+    - Creates a pair of cards for each emoji (12 total).
+    - Shuffles the cards and returns a new `MemoryGame`.
+
+### ViewModel (`MemoryGameViewModel.swift`)
+
+- `MemoryGameViewModel` conforms to `ObservableObject`.
+- Holds the model in a `@Published private var model: MemoryGame`.
+- Exposes `cards` as a computed property that returns `model.cards`.
+- `func choose(_ card: MemoryCard)`:
+  - Called by the view when a card is tapped.
+  - Forwards the tap to `model.choose(card)`.
+- `func restart()`:
+  - Replaces the model with a new game from `MemoryGame.createGame()`.
+- The ViewModel is the only layer that talks directly to the model. The views only interact with the ViewModel.
+
+### View (`ContentView.swift`, `CardView.swift`)
+
+- `ContentView`:
+  - Owns `@StateObject private var viewModel = MemoryGameViewModel()`.
+  - Uses a `NavigationStack` and a `ZStack` background image for the Frutiger Aero theme.
+  - Displays:
+    - A header with the game title and a one-line description.
+    - A fixed 4×3 grid built with nested `ForEach` loops (4 rows, 3 columns).
+    - Each card is shown using `CardView(card: viewModel.cards[index])`.
+    - Each card is constrained to `80×80` points using `.frame(width: 80, height: 80)`.
+    - A “Restart” button at the bottom, which calls `viewModel.restart()`.
+  - Tap behavior:
+    - Card taps are wrapped in `withAnimation(.easeInOut(duration: 0.25)) { viewModel.choose(card) }`.
+    - Restart is wrapped in `withAnimation(.easeInOut) { viewModel.restart() }`.
+
+- `CardView`:
+  - Renders a single `MemoryCard`.
+  - Uses a `RoundedRectangle` as the base shape.
+  - When `card.isFaceUp` is true:
+    - Draws a textured background image (`TextureOfCardWhenFlipped`).
+    - Adds a semi-transparent blue overlay.
+    - Adds a blue stroke border.
+    - Draws the emoji in a large font.
+  - When `card.isFaceUp` is false:
+    - Fills the rounded rectangle in cyan.
+    - Uses a lower opacity for matched cards to visually distinguish them.
+
 ---
 
-### **View — `ContentView.swift` + `CardView.swift`**
-The View handles **UI only**, including:
-- The grid layout (4 rows × 3 columns)
-- Header text + description
-- Background image
-- Restart button
-- Per-card animations
-- Equal card sizing so the grid stays even
+## Animation / Transition Behavior
 
-Each card is its own view (`CardView`) that reacts to:
-- `isFaceUp`  
-- `isMatched`  
-- The ViewModel’s updates  
+All animations are implemented in the View layer and are driven by changes in `card` state and ViewModel calls.
+
+### Card tap animation (`CardView.swift`)
+
+- Uses a scale animation tied to `card.isFaceUp`:
+  - `scaleEffect(card.isFaceUp ? 0.95 : 0.9)`
+  - `.animation(.spring(response: 0.25, dampingFraction: 0.5), value: card.isFaceUp)`
+- This creates a small, spring-based scale change when a card flips between face up and face down.
+- There is **no 3D flip rotation**. The visual effect is purely scale-based, not a flip.
+
+### Matched card animation (`CardView.swift`)
+
+- When `card.isMatched` becomes true:
+  - `opacity` goes from `1` to `0`.
+  - `scaleEffect` goes from `1.0` to `0.5`.
+  - Both are animated with:
+    - `.animation(.easeInOut(duration: 0.3), value: card.isMatched)`
+- This makes matched cards smoothly shrink and fade out instead of disappearing instantly.
+
+### Restart animation (`ContentView.swift`)
+
+- The Restart button wraps `viewModel.restart()` in:
+  - `withAnimation(.easeInOut) { ... }`
+- This animates the grid update when a new shuffled game is created.
 
 ---
 
-## Animation / Transition Implementation  
-I added a smooth **flip animation** using SwiftUI’s `spring` and `easeInOut` effects.  
-When the player taps a card:
+## Layout and Design
 
-- The card scales slightly 
-- The face texture fades in
-- The border and glossy overlay appear smoothly
-- Matched cards shrink and fade out
+- 4×3 fixed grid of cards.
+- Each card is an 80×80 square, so the grid stays aligned and does not shift when animations occur.
+- Header text uses a rounded system font with a white foreground and a shadow to stand out from the background.
+- Background is a full-screen image to match the Frutiger Aero style.
+- Spacing is chosen so nothing overlaps the Dynamic Island or system UI on modern iPhones.
 
-All animations are placed inside the View layer (`CardView`)
+---
+
+## Video
+
+A walkthrough video explaining:
+- How MVVM is implemented (Model, ViewModel, View separation).
+- How the animations are wired to state (`isFaceUp`, `isMatched`) and where they are in the code.
+
+[Paste video link here once recorded]
