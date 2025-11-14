@@ -49,7 +49,7 @@ Each card is its own view (`CardView`) that reacts to:
 
 ---
 
-## ✨ Animation / Transition Implementation  
+## Animation / Transition Implementation  
 I added a smooth **flip animation** using SwiftUI’s `spring` and `easeInOut` effects.  
 When the player taps a card:
 
