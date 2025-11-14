@@ -4,7 +4,7 @@
 // Hasan Dababo
 // Date: 11/7/2025
 //
-// MemoryGame.swift
+// Game.swift
 // Description: Core game logic for matching cards, handling flips, and generating a shuffled deck.
 
 
