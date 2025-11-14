@@ -17,7 +17,7 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            //background
+            //Background
             Image("tropicalBackground")
                 .resizable()
                 .scaledToFill()
