@@ -1,8 +1,8 @@
-# 🎮 Frutiger Aero Match — Partner Lab 3  
+# Frutiger Aero Memory Game — Partner Lab 3  
 **Group #3 — Hasan Dababo**  
 **Date: 11/7/2025**
 
-## 📌 Overview  
+## Overview  
 This project is my rebuilt version of the Memory Card Game using the **MVVM architecture**, improved UI organization, and a custom transition/animation effect.  
 I themed the entire app around a modern **Frutiger Aero aesthetic**—bright sky gradients, glossy textures, soft shadows, and clean rounded typography. The goal was to make the game feel light, smooth, and visually satisfying while keeping the code structure clean and modular.
 
@@ -11,7 +11,7 @@ I implemented a **smooth flip animation** and locked card sizes so the layout al
 
 ---
 
-## 🧱 MVVM Architecture Breakdown  
+## MVVM Architecture Breakdown  
 I followed the MVVM pattern exactly like the lesson required, separating the project into three clear layers:
 
 ### **Model — `MemoryGame.swift` / `MemoryCard.swift`**
